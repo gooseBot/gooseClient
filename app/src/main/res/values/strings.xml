@@ -2,7 +2,7 @@
 <resources>
 
     <string name="edit_message">enter command</string>
-    <string name="app_name">UdpcommClient</string>
+    <string name="app_name">Goose Control</string>
     <string name="hello">Goose Controler</string>
     
 </resources>
