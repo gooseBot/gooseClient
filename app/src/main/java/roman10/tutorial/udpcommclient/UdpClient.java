@@ -76,7 +76,10 @@ public class UdpClient extends Activity implements OnClickListener {
 	    	
 	    	try {
 				ds = new DatagramSocket();
-				InetAddress serverAddr = InetAddress.getByName("crazycats.Linksysnet.com");
+				//InetAddress serverAddr = InetAddress.getByName("crazycats.Linksysnet.com");
+                //192, 168, 1, 178  address of goose gun on my local network at home
+                byte [] b = new byte[] {(byte)192,(byte)168,(byte)1,(byte)178};
+                InetAddress serverAddr = InetAddress.getByAddress(b);
 				DatagramPacket dp = new DatagramPacket(udpMsg.getBytes(), udpMsg.length(), serverAddr, UDP_SERVER_PORT);
 				DatagramPacket dpr = new DatagramPacket(lMsg, lMsg.length);
 				ds.send(dp);
