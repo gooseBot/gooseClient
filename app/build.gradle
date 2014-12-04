@@ -5,14 +5,14 @@ android {
     buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "roman10.tutorial.udpcommclient"
+        applicationId "time2go.goosegun.gooseController"
         minSdkVersion 4
         targetSdkVersion 4
     }
 
     buildTypes {
         release {
-            runProguard false
+            //runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
