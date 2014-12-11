@@ -12,55 +12,55 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ToggleButton;
 import android.widget.TextView;
 import android.os.AsyncTask;
 
 public class UdpClient extends Activity implements OnClickListener {
 	
     /** Called when the activity is first created. */
-	public Button btn2, btn3, btn4, btn5, btn6, btn7;
-	//public Button btn3;
-	
+	public Button btn2, btn4, btn6;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        btn2 = (Button)findViewById(R.id.button2);
-        btn2.setOnClickListener(this);           
-        btn3 = (Button)findViewById(R.id.button3);
-        btn3.setOnClickListener(this);           
-        btn4 = (Button)findViewById(R.id.button4);
-        btn4.setOnClickListener(this);           
-        btn5 = (Button)findViewById(R.id.button5);
-        btn5.setOnClickListener(this);           
-        btn6 = (Button)findViewById(R.id.button6);
-        btn6.setOnClickListener(this);           
-        btn7 = (Button)findViewById(R.id.button7);
-        btn7.setOnClickListener(this);           
+        btn2 = (Button) findViewById(R.id.button2);
+        btn2.setOnClickListener(this);
+        btn4 = (Button) findViewById(R.id.button4);
+        btn4.setOnClickListener(this);
+        btn6 = (Button) findViewById(R.id.button6);
+        btn6.setOnClickListener(this);
     }
     @Override
 	public void onClick(View view) {
+        boolean on = ((ToggleButton) view).isChecked();
+        String command = "";
         // detect the view that was "clicked"
         switch (view.getId()) {
         case R.id.button2:
-            new LongOperation().execute("dof");
-            break;
-        case R.id.button3:
-            new LongOperation().execute("don");
+            if (on) {
+                command="don";
+            } else {
+                command="dof";
+            }
             break;
         case R.id.button4:
-            new LongOperation().execute("kon");
-            break;
-        case R.id.button5:
-            new LongOperation().execute("kof");
+            if (on) {
+                command="kon";
+            } else {
+                command="kof";
+            }
             break;
         case R.id.button6:
-            new LongOperation().execute("gof");
-            break;
-        case R.id.button7:
-            new LongOperation().execute("gon");
+            if (on) {
+                command="gon";
+            } else {
+                command="gof";
+            }
             break;
         }
+        new LongOperation().execute(command);
     }
     
     private class LongOperation extends AsyncTask<String, Void, String>  {
@@ -105,19 +105,8 @@ public class UdpClient extends Activity implements OnClickListener {
     	}
     	@Override
         protected void onPostExecute(String result) {
-            //TextView txt = (TextView) findViewById(R.id.text1);
-            //byte[] resultBytes = result.getBytes();
-            //String responseCode = new String(resultBytes);
-            //txt.setText(Arrays.toString(resultBytes));
-            //loadPlot(resultBytes);
             TextView txt = (TextView) findViewById(R.id.text1);
             txt.setText(result);               
-        }
-
-        @Override
-        protected void onPreExecute() {
-            //TextView txt = (TextView) findViewById(R.id.text1);
-            //txt.setText("");        	
         }
 
         @Override

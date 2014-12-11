@@ -9,7 +9,7 @@
         className = "time2go.goosegun.gooseController.UdpClient"/>
       <point      
         x = "158"      
-        y = "0"/>
+        y = "158"/>
     </statePointEntry>
   </locations>
 </navigationModel>
