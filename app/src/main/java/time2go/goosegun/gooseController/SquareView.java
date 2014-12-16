@@ -1,5 +1,6 @@
 package time2go.goosegun.gooseController;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,12 +9,14 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
-public class MainDrawingView extends View {
+public class SquareView extends View {
+
     private Paint paint = new Paint();
     private Path path = new Path();
 
-    public MainDrawingView(Context context, AttributeSet attrs) {
+    public SquareView(Context context, AttributeSet attrs) {
         super(context, attrs);
         paint.setAntiAlias(true);
         paint.setStrokeWidth(5f);
@@ -21,10 +24,15 @@ public class MainDrawingView extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
     }
-
+    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int size = Math.min(getMeasuredWidth(), getMeasuredHeight());
+        setMeasuredDimension(size, size/2);
+    }
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawPath(path, paint);
+        canvas.drawCircle(canvas.getWidth()/2,canvas.getHeight(),canvas.getWidth()/2,paint);
     }
 
     @Override
@@ -32,6 +40,9 @@ public class MainDrawingView extends View {
         // Get the coordinates of the touch event.
         float eventX = event.getX();
         float eventY = event.getY();
+
+        TextView txt = (TextView) ((Activity)getContext()).findViewById(R.id.text1);
+        txt.setText(eventX + ", " + eventY);
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:

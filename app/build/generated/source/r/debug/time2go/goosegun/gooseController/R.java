@@ -19,54 +19,30 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int metaButtonBarStyle=0x7f010000;
     }
     public static final class color {
-        public static final int black_overlay=0x7f050000;
-    }
-    public static final class dimen {
-        public static final int activity_horizontal_margin=0x7f060000;
-        public static final int activity_vertical_margin=0x7f060001;
-        public static final int domain_label_font_size=0x7f060002;
-        public static final int domain_tick_label_font_size=0x7f060003;
-        public static final int legend_text_font_size=0x7f060004;
-        public static final int pie_segment_label_font_size=0x7f060005;
-        public static final int range_label_font_size=0x7f060006;
-        public static final int range_tick_label_font_size=0x7f060007;
-        public static final int title_font_size=0x7f060008;
+        public static final int black_overlay=0x7f040000;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int button2=0x7f090003;
-        public static final int button4=0x7f090004;
-        public static final int button6=0x7f090005;
-        public static final int button7=0x7f090006;
-        public static final int dummy_button=0x7f090002;
-        public static final int fullscreen_content=0x7f090000;
-        public static final int fullscreen_content_controls=0x7f090001;
-        public static final int single_touch_view=0x7f090008;
-        public static final int text1=0x7f090007;
+        public static final int button2=0x7f070000;
+        public static final int button4=0x7f070001;
+        public static final int button6=0x7f070002;
+        public static final int button7=0x7f070003;
+        public static final int single_touch_view=0x7f070005;
+        public static final int text1=0x7f070004;
     }
     public static final class layout {
-        public static final int activity_fullscreen=0x7f030000;
-        public static final int main=0x7f030001;
+        public static final int main=0x7f030000;
     }
     public static final class string {
-        public static final int app_name=0x7f070000;
-        public static final int dummy_button=0x7f070001;
-        public static final int dummy_content=0x7f070002;
-        public static final int edit_message=0x7f070003;
-        public static final int hello=0x7f070004;
-        public static final int title_activity_fullscreen=0x7f070005;
+        public static final int app_name=0x7f050000;
     }
     public static final class style {
-        public static final int ButtonBar=0x7f080000;
-        public static final int ButtonBarButton=0x7f080001;
-        public static final int FullscreenActionBarStyle=0x7f080003;
-        public static final int FullscreenTheme=0x7f080002;
-    }
-    public static final class xml {
-        public static final int line_point_formatter_with_plf1=0x7f040000;
-        public static final int line_point_formatter_with_plf2=0x7f040001;
+        public static final int ButtonBar=0x7f060000;
+        public static final int ButtonBarButton=0x7f060001;
+        public static final int FullscreenActionBarStyle=0x7f060003;
+        public static final int FullscreenTheme=0x7f060002;
     }
     public static final class styleable {
         /** Attributes that can be used with a ButtonBarContainerTheme.

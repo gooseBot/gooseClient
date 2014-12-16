@@ -35,6 +35,12 @@
             android:textOff="Manual Off"
             android:textOn="Manual On" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/text1"
             android:layout_width="0dp"
@@ -45,12 +51,10 @@
             android:layout_gravity="bottom" />
     </LinearLayout>
 
-    <view
+    <time2go.goosegun.gooseController.SquareView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="time2go.goosegun.gooseController.MainDrawingView"
         android:id="@+id/single_touch_view"
-        android:layout_gravity="start|top"
         android:background="#ffffff" />
 
 </LinearLayout><!-- From: file:/C:/Users/Eric/Documents/androidStudio/gooseClient/app/src/main/res/layout/main.xml -->
