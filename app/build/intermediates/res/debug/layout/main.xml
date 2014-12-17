@@ -51,7 +51,7 @@
             android:layout_gravity="bottom" />
     </LinearLayout>
 
-    <time2go.goosegun.gooseController.SquareView
+    <time2go.goosegun.gooseController.TargetRangeView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/single_touch_view"
