@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +18,8 @@ public class TargetRangeView extends View {
     private boolean drawTouchPointer=false;
     private int scannerOriginX=0;
     private int scannerOriginY=0;
+    private int nozzelRange=30;
+    private double feetPerPixel=0;
 
     public TargetRangeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -34,6 +35,7 @@ public class TargetRangeView extends View {
         setMeasuredDimension(size, size/2);
         scannerOriginY=size/2;
         scannerOriginX=size/2;
+        feetPerPixel=(double)nozzelRange/(size/2);
     }
     @Override
     protected void onDraw(Canvas canvas) {
@@ -68,9 +70,9 @@ public class TargetRangeView extends View {
         int deltaX = scannerOriginX-(int)eventX;
         int deltaY = scannerOriginY-(int)eventY;
         double angleInDegrees = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
-        double distance = Math.sqrt( Math.pow(deltaY,2) + Math.pow(deltaX,2));
+        double distance = (Math.sqrt( Math.pow(deltaY,2) + Math.pow(deltaX,2)))*feetPerPixel;
 
-        TextView txt = (TextView) ((Activity)getContext()).findViewById(R.id.text1);
+        TextView txt = (TextView) ((Activity)getContext()).findViewById(R.id.udpResponse);
         txt.setText("angle " + String.format("%.0f", angleInDegrees) + " distance " + String.format("%.0f", distance));
 
         // Makes our view repaint and call onDraw
