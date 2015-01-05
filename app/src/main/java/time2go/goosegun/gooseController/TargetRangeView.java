@@ -9,6 +9,10 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import android.os.AsyncTask;
+import android.os.Build;
 
 public class TargetRangeView extends View {
 
@@ -29,6 +33,7 @@ public class TargetRangeView extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
     }
+
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int size = Math.min(getMeasuredWidth(), getMeasuredHeight());
@@ -37,6 +42,7 @@ public class TargetRangeView extends View {
         scannerOriginX=size/2;
         feetPerPixel=(double)nozzelRange/(size/2);
     }
+
     @Override
     protected void onDraw(Canvas canvas) {
         if (drawTouchPointer) canvas.drawCircle (eventX, eventY, 50, paint);

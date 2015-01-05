@@ -33,6 +33,15 @@ public class UdpClient extends Activity implements OnClickListener {
         btnGun.setOnClickListener(this);
         btnManual = (Button) findViewById(R.id.manual);
         btnManual.setOnClickListener(this);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        ((ToggleButton) findViewById(R.id.kid)).setChecked(false);
+        ((ToggleButton) findViewById(R.id.data)).setChecked(false);
+        ((ToggleButton) findViewById(R.id.gun)).setChecked(false);
+        ((ToggleButton) findViewById(R.id.manual)).setChecked(false);
         new LongOperation().execute("sts");
     }
     @Override
@@ -73,10 +82,10 @@ public class UdpClient extends Activity implements OnClickListener {
         new LongOperation().execute(command);
     }
     
-    private class LongOperation extends AsyncTask<String, Void, String>  {
+    public class LongOperation extends AsyncTask<String, Void, String>  {
         private static final int UDP_SERVER_PORT = 8888;
         private static final int MAX_UDP_DATAGRAM_LEN = 1500;
-    	String lText;
+    	private String lText="err";
     	
     	@Override
     	protected String doInBackground(String... params) {
@@ -117,9 +126,9 @@ public class UdpClient extends Activity implements OnClickListener {
         protected void onPostExecute(String result) {
             TextView txt = (TextView) findViewById(R.id.udpResponse);
             txt.setText(result);
+            if (result=="err") {return;}
             for (int i=0;i<result.length();i=i+3){
                 String cmd = result.substring(i,i+3);
-                Log.i("UDP command: ", cmd);
                 if (cmd.equals("kon")) {((ToggleButton) findViewById(R.id.kid)).setChecked(true);}
                 if (cmd.equals("don")) {((ToggleButton) findViewById(R.id.data)).setChecked(true);}
                 if (cmd.equals("gon")) {((ToggleButton) findViewById(R.id.gun)).setChecked(true);}
