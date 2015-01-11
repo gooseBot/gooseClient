@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="time2go.goosegun.gooseController.test">
+
+    <uses-sdk android:minSdkVersion="17" android:targetSdkVersion="17" />
+
+    <application>
+        <uses-library android:name="android.test.runner" />
+    </application>
+
+    <instrumentation android:name="android.test.InstrumentationTestRunner"
+                     android:targetPackage="time2go.goosegun.gooseController"
+                     android:handleProfiling="false"
+                     android:functionalTest="false"
+                     android:label="Tests for time2go.goosegun.gooseController"/>
+</manifest>

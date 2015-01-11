@@ -9,10 +9,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import android.os.AsyncTask;
-import android.os.Build;
 
 public class TargetRangeView extends View {
 
@@ -24,6 +20,8 @@ public class TargetRangeView extends View {
     private int scannerOriginY=0;
     private int nozzelRange=30;
     private double feetPerPixel=0;
+
+    private String lText="err";
 
     public TargetRangeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -55,12 +53,16 @@ public class TargetRangeView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 drawTouchPointer=true;
+                //udpMsg="von";
+                //new LongOperation().execute(command);
                 break;
             case MotionEvent.ACTION_MOVE:
                 drawTouchPointer=true;
+                //udpMsg="trg";
                 break;
             case MotionEvent.ACTION_UP:
                 drawTouchPointer=false;
+                //udpMsg="vof";
                 break;
             default:
                 return false;
