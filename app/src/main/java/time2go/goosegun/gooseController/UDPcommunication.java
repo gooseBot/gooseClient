@@ -13,7 +13,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-public class LongOperation extends AsyncTask<Object, Boolean, String> {
+public class UDPcommunication extends AsyncTask<Object, Boolean, String> {
     private static final int UDP_SERVER_PORT = 8888;
     private static final int MAX_UDP_DATAGRAM_LEN = 1500;
     private String lText="err";
@@ -35,10 +35,14 @@ public class LongOperation extends AsyncTask<Object, Boolean, String> {
             DatagramPacket dp = new DatagramPacket(udpMsg.getBytes(), udpMsg.length(), serverAddr, UDP_SERVER_PORT);
             DatagramPacket dpr = new DatagramPacket(lMsg, lMsg.length);
             ds.send(dp);
-            //disable timeout for testing
-            ds.setSoTimeout(4000);
-            ds.receive(dpr);
-            lText = new String(lMsg, 0, dpr.getLength());
+            //not waiting for a response for trg commands
+            if ((udpMsg.length()>=3) && udpMsg.substring(0,3).equals("trg")){
+                lText = udpMsg.substring(0,3);    //used in onpostexecute needs to be 3 char command only
+            } else {
+                ds.setSoTimeout(4000);
+                ds.receive(dpr);
+                lText = new String(lMsg, 0, dpr.getLength());
+            }
             Log.i("UDP packet received", lText);
         } catch (SocketException e) {
             e.printStackTrace();
@@ -57,9 +61,12 @@ public class LongOperation extends AsyncTask<Object, Boolean, String> {
     }
     @Override
     protected void onPostExecute(String result) {
+        // show the UDP response in the textView
         TextView txt = (TextView) callerActivity.findViewById(R.id.udpResponse);
         txt.setText(result);
-        if (result=="err") {return;}
+        // if err then no need to examine the response, or for trg commands since not waiting for a response
+        if (result=="err" || result=="trg") {return;}
+        // otherwise examine the response and update the UI
         for (int i=0;i<result.length();i=i+3){
             String cmd = result.substring(i,i+3);
             if (cmd.equals("kon")) {((ToggleButton) callerActivity.findViewById(R.id.kid)).setChecked(true);}
@@ -68,5 +75,4 @@ public class LongOperation extends AsyncTask<Object, Boolean, String> {
             if (cmd.equals("mon")) {((ToggleButton) callerActivity.findViewById(R.id.manual)).setChecked(true);}
         }
     }
-
 }

@@ -7,7 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ToggleButton;
 
-public class UdpClient extends Activity implements OnClickListener {
+public class MainActivity extends Activity implements OnClickListener {
 	
     /** Called when the activity is first created. */
 	public Button btnData, btnKid, btnGun, btnManual;
@@ -33,8 +33,8 @@ public class UdpClient extends Activity implements OnClickListener {
         ((ToggleButton) findViewById(R.id.data)).setChecked(false);
         ((ToggleButton) findViewById(R.id.gun)).setChecked(false);
         ((ToggleButton) findViewById(R.id.manual)).setChecked(false);
-        LongOperation LongOperationTask = new LongOperation();
-        LongOperationTask.execute("sts",this);
+        UDPcommunication UDPcommunicationTask = new UDPcommunication();
+        UDPcommunicationTask.execute("sts", this);
     }
     @Override
 	public void onClick(View view) {
@@ -71,8 +71,8 @@ public class UdpClient extends Activity implements OnClickListener {
             }
             break;
         }
-        LongOperation LongOperationTask = new LongOperation();
-        LongOperationTask.execute(command,this);
+        UDPcommunication UDPcommunicationTask = new UDPcommunication();
+        UDPcommunicationTask.execute(command,this);
     }
 }
 

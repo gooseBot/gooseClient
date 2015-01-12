@@ -6,7 +6,7 @@
     <statePointEntry>
       <state      
         class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
-        className = "time2go.goosegun.gooseController.UdpClient"/>
+        className = "time2go.goosegun.gooseController.MainActivity"/>
       <point      
         x = "158"      
         y = "158"/>

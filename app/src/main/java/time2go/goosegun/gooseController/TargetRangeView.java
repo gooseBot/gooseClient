@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -20,11 +21,14 @@ public class TargetRangeView extends View {
     private int scannerOriginY=0;
     private int nozzelRange=30;
     private double feetPerPixel=0;
-
+    private Activity callerActivity;
+    private double lastAngleInDegrees=0;
+    private double lastDistance=0;
     private String lText="err";
 
     public TargetRangeView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        callerActivity = (Activity)context;
         paint.setAntiAlias(true);
         paint.setStrokeWidth(5f);
         paint.setColor(Color.BLACK);
@@ -49,26 +53,9 @@ public class TargetRangeView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        UDPcommunication UDPcommunicationTask = new UDPcommunication();
 
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                drawTouchPointer=true;
-                //udpMsg="von";
-                //new LongOperation().execute(command);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                drawTouchPointer=true;
-                //udpMsg="trg";
-                break;
-            case MotionEvent.ACTION_UP:
-                drawTouchPointer=false;
-                //udpMsg="vof";
-                break;
-            default:
-                return false;
-        }
-
-        // Get the coordinates of the touch event.
+        // Get the coordinates of the touch event and convert to polar
         eventX = event.getX();
         eventY = event.getY();
         if (eventY > this.getHeight()) eventY = this.getHeight();
@@ -80,7 +67,29 @@ public class TargetRangeView extends View {
         double angleInDegrees = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
         double distance = (Math.sqrt( Math.pow(deltaY,2) + Math.pow(deltaX,2)))*feetPerPixel;
 
-        TextView txt = (TextView) ((Activity)getContext()).findViewById(R.id.udpResponse);
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                drawTouchPointer=true;
+                UDPcommunicationTask.execute("von", callerActivity);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                drawTouchPointer=true;
+                if ((Math.abs(angleInDegrees-lastAngleInDegrees)>.5) || (Math.abs(distance-lastDistance)>1)){
+                    lastAngleInDegrees=angleInDegrees;
+                    lastDistance=distance;
+                    String targetCoordinates = String.format("%05.1f", lastAngleInDegrees) + String.format("%02.0f", lastDistance);
+                    UDPcommunicationTask.execute("trg"+targetCoordinates, callerActivity);
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                drawTouchPointer=false;
+                UDPcommunicationTask.execute("vof", callerActivity);
+                break;
+            default:
+                return false;
+        }
+
+        TextView txt = (TextView) (callerActivity.findViewById(R.id.udpResponse));
         txt.setText("angle " + String.format("%.0f", angleInDegrees) + " distance " + String.format("%.0f", distance));
 
         // Makes our view repaint and call onDraw

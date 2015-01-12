@@ -48,7 +48,7 @@ ADDED from AndroidManifest.xml:19:5
 		ADDED from AndroidManifest.xml:21:9
 	android:icon
 		ADDED from AndroidManifest.xml:20:9
-activity#time2go.goosegun.gooseController.UdpClient
+activity#time2go.goosegun.gooseController.MainActivity
 ADDED from AndroidManifest.xml:22:9
 	android:label
 		ADDED from AndroidManifest.xml:24:13
