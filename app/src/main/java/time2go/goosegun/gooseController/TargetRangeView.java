@@ -23,7 +23,7 @@ public class TargetRangeView extends View {
     private double feetPerPixel=0;
     private Activity callerActivity;
     private double lastAngleInDegrees=0;
-    private double lastDistance=0;
+    private int lastDistance=0;
     private String lText="err";
 
     public TargetRangeView(Context context, AttributeSet attrs) {
@@ -62,10 +62,12 @@ public class TargetRangeView extends View {
         if (eventY < 0) eventY=0;
         if (eventX > this.getWidth()) eventX = this.getWidth();
         if (eventX < 0) eventX=0;
-        int deltaX = scannerOriginX-(int)eventX;
-        int deltaY = scannerOriginY-(int)eventY;
-        double angleInDegrees = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
-        double distance = (Math.sqrt( Math.pow(deltaY,2) + Math.pow(deltaX,2)))*feetPerPixel;
+        //int deltaX = scannerOriginX-(int)eventX;
+        //int deltaY = scannerOriginY-(int)eventY;
+        //double angleInDegrees = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
+        double angleInDegrees = (eventX/this.getWidth())*180;
+        //double distance = (Math.sqrt( Math.pow(deltaY,2) + Math.pow(deltaX,2)))*feetPerPixel;
+        int distance = (int)((this.getHeight()-eventY)*feetPerPixel);
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -77,7 +79,7 @@ public class TargetRangeView extends View {
                 if ((Math.abs(angleInDegrees-lastAngleInDegrees)>.5) || (Math.abs(distance-lastDistance)>1)){
                     lastAngleInDegrees=angleInDegrees;
                     lastDistance=distance;
-                    String targetCoordinates = String.format("%05.1f", lastAngleInDegrees) + String.format("%02.0f", lastDistance);
+                    String targetCoordinates = String.format("%05.1f", lastAngleInDegrees) + String.format("%02d", lastDistance);
                     UDPcommunicationTask.execute("trg"+targetCoordinates, callerActivity);
                 }
                 break;
@@ -90,7 +92,7 @@ public class TargetRangeView extends View {
         }
 
         TextView txt = (TextView) (callerActivity.findViewById(R.id.udpResponse));
-        txt.setText("angle " + String.format("%.0f", angleInDegrees) + " distance " + String.format("%.0f", distance));
+        txt.setText("angle " + String.format("%.0f", angleInDegrees) + " distance " + String.format("%02d", distance));
 
         // Makes our view repaint and call onDraw
         invalidate();
