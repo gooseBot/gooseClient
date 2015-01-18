@@ -65,9 +65,9 @@ public class UDPcommunication extends AsyncTask<Object, Boolean, String> {
         TextView txt = (TextView) callerActivity.findViewById(R.id.udpResponse);
         txt.setText(result);
         // if err then no need to examine the response, or for trg commands since not waiting for a response
-        if (result=="err" || result=="trg") {return;}
+        if (result.equals("err") || result.equals("trg")) {return;}
         // if result > 3 then it is status message, so clear buttons first
-        if (result.length()>3){
+        if (result.substring(0,3).equals("sts")){
             ((ToggleButton) callerActivity.findViewById(R.id.kid)).setChecked(false);
             ((ToggleButton) callerActivity.findViewById(R.id.data)).setChecked(false);
             ((ToggleButton) callerActivity.findViewById(R.id.gun)).setChecked(false);
