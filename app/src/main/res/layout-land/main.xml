@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+	    <ToggleButton
+	        android:id="@+id/data"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+            android:textOff="Data Off"
+            android:textOn="Data On" />
+
+        <ToggleButton
+            android:id="@+id/kid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textOff="Kid Off"
+            android:textOn="Kid On" />
+
+        <ToggleButton
+            android:id="@+id/gun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textOff="Gun Off"
+            android:textOn="Gun On" />
+
+        <ToggleButton
+            android:id="@+id/manual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textOff="Manual Off"
+            android:textOn="Manual On" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <time2go.goosegun.gooseController.TargetRangeView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/single_touch_view"
+            android:background="#ffffff" />
+
+        <EditText
+            android:id="@+id/udpResponse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"/>
+    </LinearLayout>
+</LinearLayout>
+

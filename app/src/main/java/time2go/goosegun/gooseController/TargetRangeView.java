@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TargetRangeView extends View {
 
@@ -39,10 +40,24 @@ public class TargetRangeView extends View {
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int size = Math.min(getMeasuredWidth(), getMeasuredHeight());
-        setMeasuredDimension(size, size/2);
-        scannerOriginY=size/2;
-        scannerOriginX=size/2;
-        feetPerPixel=(double)nozzelRange/(size/2);
+        Context context = getContext();
+        if(getResources().getDisplayMetrics().widthPixels>getResources().getDisplayMetrics().heightPixels)
+        {
+            //landscape
+            setMeasuredDimension(getMeasuredWidth(), getMeasuredWidth()/2);
+            scannerOriginY=getMeasuredWidth()/2;
+            scannerOriginX=getMeasuredWidth()/2;
+            feetPerPixel=(double)nozzelRange/(getMeasuredWidth()/2);
+        }
+        else
+        {
+            //Portrait
+            setMeasuredDimension(size, size/2);
+            scannerOriginY=size/2;
+            scannerOriginX=size/2;
+            feetPerPixel=(double)nozzelRange/(size/2);
+        }
+
     }
 
     @Override
