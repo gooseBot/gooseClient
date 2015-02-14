@@ -8,30 +8,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 	    <ToggleButton
+            android:layout_weight="1"
 	        android:id="@+id/data"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
             android:textOff="Data Off"
             android:textOn="Data On" />
 
         <ToggleButton
             android:id="@+id/kid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:textOff="Kid Off"
             android:textOn="Kid On" />
 
         <ToggleButton
             android:id="@+id/gun"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:textOff="Gun Off"
             android:textOn="Gun On" />
 
         <ToggleButton
             android:id="@+id/manual"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:textOff="Manual Off"
             android:textOn="Manual On" />
 
@@ -41,14 +45,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
+        <TextView
             android:id="@+id/udpResponse"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="none"
-            android:layout_weight="1"
-            android:layout_gravity="bottom" />
+            style="@android:style/TextAppearance.Medium"/>
     </LinearLayout>
 
     <time2go.goosegun.gooseController.TargetRangeView

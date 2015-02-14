@@ -2,8 +2,11 @@ package time2go.goosegun.gooseController;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -26,15 +29,19 @@ public class TargetRangeView extends View {
     private double lastAngleInDegrees=0;
     private int lastDistance=0;
     private String lText="err";
+    private Matrix matrix = new Matrix();
+    private Bitmap bitmapOrg;
 
     public TargetRangeView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setBackgroundResource(R.drawable.grass2);
         callerActivity = (Activity)context;
         paint.setAntiAlias(true);
         paint.setStrokeWidth(5f);
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
+        bitmapOrg = BitmapFactory.decodeResource(getResources(), R.drawable.goosesmall);
     }
 
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -42,28 +49,29 @@ public class TargetRangeView extends View {
         int size = Math.min(getMeasuredWidth(), getMeasuredHeight());
         Context context = getContext();
         if(getResources().getDisplayMetrics().widthPixels>getResources().getDisplayMetrics().heightPixels)
-        {
-            //landscape
+        {   //landscape
             setMeasuredDimension(getMeasuredWidth(), getMeasuredWidth()/2);
             scannerOriginY=getMeasuredWidth()/2;
             scannerOriginX=getMeasuredWidth()/2;
             feetPerPixel=(double)nozzelRange/(getMeasuredWidth()/2);
-        }
-        else
-        {
+        } else  {
             //Portrait
             setMeasuredDimension(size, size/2);
             scannerOriginY=size/2;
             scannerOriginX=size/2;
             feetPerPixel=(double)nozzelRange/(size/2);
         }
-
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         if (drawTouchPointer) canvas.drawCircle (eventX, eventY, 50, paint);
         canvas.drawCircle(canvas.getWidth()/2,canvas.getHeight(),canvas.getWidth()/2,paint);
+        matrix.reset();
+        matrix.postTranslate(-bitmapOrg.getWidth() / 2, -bitmapOrg.getHeight()); // Centers image
+        matrix.postRotate(0);
+        matrix.postTranslate(scannerOriginX, scannerOriginY);
+        canvas.drawBitmap(bitmapOrg, matrix, null);
     }
 
     @Override
