@@ -51,8 +51,7 @@
         <time2go.goosegun.gooseController.TargetRangeView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/single_touch_view"
-            android:background="#ffffff" />
+            android:id="@+id/single_touch_view"/>
     </LinearLayout>
 </LinearLayout>
 

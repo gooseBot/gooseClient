@@ -26,7 +26,6 @@ public class TargetRangeView extends View {
     private Activity callerActivity;
     private double lastAngleInDegrees=0;
     private int lastDistance=0;
-    private String lText="err";
     private Matrix matrix = new Matrix();
     private Bitmap goose;
     private Bitmap nozzle;
@@ -46,8 +45,6 @@ public class TargetRangeView extends View {
 
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int size = Math.min(getMeasuredWidth(), getMeasuredHeight());
-        Context context = getContext();
         if(getResources().getDisplayMetrics().widthPixels > getResources().getDisplayMetrics().heightPixels)
         {   //landscape
             setMeasuredDimension(getMeasuredWidth(), getMeasuredWidth()/2);
@@ -55,11 +52,13 @@ public class TargetRangeView extends View {
             scannerOriginX=getMeasuredWidth()/2;
             feetPerPixel=(double)nozzelRange/(getMeasuredWidth()/2);
         } else  { //Portrait
+            int size = Math.min(getMeasuredWidth(), getMeasuredHeight());
             setMeasuredDimension(size, size/2);
             scannerOriginY=size/2;
             scannerOriginX=size/2;
             feetPerPixel=(double)nozzelRange/(size/2);
         }
+        //set initial location of an event, this ensure the goose icon starts in the center
         eventX=getMeasuredWidth()/2;
         eventY=getMeasuredHeight()/2;
     }
@@ -109,7 +108,7 @@ public class TargetRangeView extends View {
                 if ((Math.abs(angleInDegrees-lastAngleInDegrees)>.5) || (Math.abs(distance-lastDistance)>1)){
                     lastAngleInDegrees=angleInDegrees;
                     lastDistance=distance;
-                    String targetCoordinates = String.format("%05.1f", lastAngleInDegrees) + String.format("%02d", lastDistance);
+                    String targetCoordinates = String.format("%05.1f", 180-lastAngleInDegrees) + String.format("%02d", lastDistance);
                     UDPcommunicationTask.execute("trg"+targetCoordinates, callerActivity);
                 }
                 break;
