@@ -47,7 +47,11 @@ public class TargetRangeView extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if(getResources().getDisplayMetrics().widthPixels > getResources().getDisplayMetrics().heightPixels)
         {   //landscape
-            setMeasuredDimension(getMeasuredWidth(), getMeasuredWidth()/2);
+            if (2*getMeasuredHeight()<getMeasuredWidth()){
+                setMeasuredDimension(2*getMeasuredHeight(), getMeasuredHeight());
+            } else {
+                setMeasuredDimension(getMeasuredWidth(), getMeasuredWidth()/2);
+            }
             scannerOriginY=getMeasuredWidth()/2;
             scannerOriginX=getMeasuredWidth()/2;
             feetPerPixel=(double)nozzelRange/(getMeasuredWidth()/2);
@@ -68,7 +72,7 @@ public class TargetRangeView extends View {
         //if (drawTouchPointer) canvas.drawCircle (eventX, eventY, 50, paint);
         canvas.drawCircle(canvas.getWidth()/2,canvas.getHeight(),canvas.getWidth()/2,paint);
         matrix.reset();
-        matrix.postTranslate(-nozzle.getWidth() / 2, -nozzle.getHeight() +65); // centers image
+        matrix.postTranslate(-nozzle.getWidth() / 2, -nozzle.getHeight() +45); // centers image
         matrix.postRotate((float)lastAngleInDegrees-90);
         matrix.postTranslate(scannerOriginX, scannerOriginY);
         canvas.drawBitmap(nozzle, matrix, null);
@@ -77,7 +81,7 @@ public class TargetRangeView extends View {
         matrix.postRotate(0);
         matrix.postTranslate(eventX, eventY);
         canvas.drawBitmap(goose, matrix, null);
-        if (drawTouchPointer) canvas.drawLine(eventX, eventY + (goose.getHeight() / 2), scannerOriginX, scannerOriginY, paint);
+        if (drawTouchPointer) canvas.drawLine(eventX, eventY , scannerOriginX, scannerOriginY, paint);
     }
 
     @Override
